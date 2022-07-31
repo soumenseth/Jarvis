@@ -1,0 +1,1 @@
+gnome-terminal --title="Jarvais" --command="bash -c 'cd /media/ahmad/DataRepo1; $SHELL'"
