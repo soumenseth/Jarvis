@@ -1,1 +1,1 @@
-This is a personal voice assistant AI.
+This is a personal voice assistant AI. For technical service.
