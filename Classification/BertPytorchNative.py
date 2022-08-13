@@ -1,16 +1,15 @@
-from datasets import load_dataset, load_metric, Dataset, DatasetDict
+from datasets import load_metric
 import numpy as np
-from transformers import AutoTokenizer, Trainer, TrainingArguments, get_scheduler
-from transformers import DefaultDataCollator, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, get_scheduler
+from transformers import AutoModelForSequenceClassification
 from torch.utils.data import DataLoader
 from torch.optim import AdamW
 import torch
 from tqdm.auto import tqdm
-from sklearn.model_selection import train_test_split
-from utils import *
+from Utils.utils import *
 
 
-class BertPytorch:
+class BertPytorchNative:
     def __init__(self, num_epochs=3, batch_size=8, lr=5e-5, seed=42, num_labels=4) -> None:
         self.labelled_data_filepath = "data/labelled_sentence_type_dataset.json"
         self.tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
@@ -21,22 +20,12 @@ class BertPytorch:
         self.lr = lr
         self.num_labels = num_labels
         self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-        self.output_dir = "results/BertPytorch"
-        check_and_create_dir(self.output_dir)
         
     def train(self):
         train_dataloader, eval_dataloader = self.get_train_eval_dataloaders()
         
         model = AutoModelForSequenceClassification.from_pretrained("bert-base-cased", num_labels=self.num_labels)
         
-        training_args = TrainingArguments(
-            output_dir=self.output_dir,
-            learning_rate=2e-5,
-            per_device_train_batch_size=16,
-            per_device_eval_batch_size=16,
-            num_train_epochs=5,
-            weight_decay=0.01,
-        )
         optimizer = AdamW(model.parameters(), lr=self.lr)
         num_training_steps = self.num_epochs * len(train_dataloader)
         lr_scheduler = get_scheduler(
@@ -96,6 +85,6 @@ class BertPytorch:
         return train_dataloader, eval_dataloader
 
 if __name__ == "__main__":
-    classifier = BertPytorch()
+    classifier = BertPytorchNative()
     classifier.train()
     

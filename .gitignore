@@ -1,4 +1,10 @@
 /venv/
-/results/.
-/data/spoken_texts.json
-/data/labelled_sentence_type_dataset.json
+/resources/models/.
+/resources/data/spoken_texts.json
+/resources/data/labelled_sentence_type_dataset.json
+/.google-cookie
+/resources/models/EntityParser/.
+Command/__pycache__/
+TextToSpeech/__pycache__/
+Utils/__pycache__/
+__pycache__/
