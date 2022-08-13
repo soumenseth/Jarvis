@@ -1,4 +1,4 @@
-from utils import *
+from Utils.utils import *
 
 sentence_types = {
     "exclamatory": 0, 
@@ -14,5 +14,5 @@ def get_labelled_data(sentence_data):
     return labelled_sentence_types_data
 
 if __name__ == "__main__":
-    all_sentences = read_json("data/sentences_dataset.json")
-    write_json("data/labelled_sentence_type_dataset.json", get_labelled_data(all_sentences))
+    all_sentences = read_json("resources/data/sentences_dataset.json")
+    write_json("resources/data/labelled_sentence_type_dataset.json", get_labelled_data(all_sentences))
